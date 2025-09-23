@@ -60,3 +60,23 @@ Este proyecto es una **herramienta de gestión de proyectos** que permite admini
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/AndreyP13/Proyecto-Ambar.git
+
+2. Entra a la carpeta del backend:
+
+    cd Proyecto-Ambar
+
+  DATOS PARA PREUBAS ## Importar base de datos
+1. Abrir phpMyAdmin
+2. Crear base de datos llamada `ambar_db`
+3. Importar el archivo `ambar_bd`
+
+4. Ejecuta el backend con:
+
+     mvn spring-boot:run
+
+
+5. Abre el archivo http://localhost:8080/ en el navegador para acceder al frontend, y hacer losapso de registro,logueo y revisar todo el frontend descrito en los pasos anteriores.
+
+✨ Autor
+
+Andrey Valencia
