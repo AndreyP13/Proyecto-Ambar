@@ -1,0 +1,50 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "AmbarProjects - Registros",
+  "dateExported": "2025-08-20",
+  "version": "1.1",
+  "requests": [
+    {
+      "name": "Crear Registro (POST)",
+      "method": "POST",
+      "url": "http://localhost:8080/api/registros",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nombre\": \"Juan Perez\",\n  \"correo\": \"juan@example.com\",\n  \"username\": \"juan123\",\n  \"password\": \"12345\"\n}"
+      }
+    },
+    {
+      "name": "Obtener todos los Registros (GET)",
+      "method": "GET",
+      "url": "http://localhost:8080/api/registros",
+      "headers": []
+    },
+    {
+      "name": "Actualizar Registro (PUT)",
+      "method": "PUT",
+      "url": "http://localhost:8080/api/registros/1",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nombre\": \"Juan Actualizado\",\n  \"correo\": \"juan_update@example.com\",\n  \"username\": \"juan123\",\n  \"password\": \"54321\"\n}"
+      }
+    },
+    {
+      "name": "Eliminar Registro (DELETE)",
+      "method": "DELETE",
+      "url": "http://localhost:8080/api/registros/1",
+      "headers": []
+    }
+  ]
+}

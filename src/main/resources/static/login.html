@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: url("imagenes/23.PNG") no-repeat center center fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .logo-container {
+      margin-bottom: 20px;
+      z-index: 1;
+    }
+
+    .logo-container img {
+      width: 180px;
+      height: auto;
+    }
+
+    form {
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    a.rojo {
+      color: #d32f2f;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="imagenes/23.PNG" alt="Logo" class="logo-img" />
+  </div>
+
+  <form id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Nombre de usuario" required />
+    <input type="password" id="password" placeholder="Contraseña" required />
+    <input type="submit" value="Acceder" />
+  </form>
+
+  <p><a href="/forgot-password" class="rojo">¿Olvidaste la contraseña?</a></p>
+
+  <script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.mensaje === "Login exitoso") {
+      // ✅ Guardar datos del usuario en localStorage
+      localStorage.setItem("usuarioLogueado", JSON.stringify({
+        username: data.username,
+        nombre: data.nombre,
+        correo: data.correo
+      }));
+
+      // ✅ Guardar mensaje de éxito para mostrar en Principal.html
+      localStorage.setItem("mensajeLogin", "✅ Bienvenido " + data.nombre + "!");
+
+      // ✅ Redirigir a la página principal
+      window.location.href = "Principal.html";
+    } else {
+      alert("❌ " + (data.mensaje || "Error de login"));
+    }
+  } catch (error) {
+    console.error("Error en login:", error);
+    alert("Error de conexión con el servidor");
+  }
+});
+
+// ✅ Mostrar mensaje si venimos de logout
+window.addEventListener("DOMContentLoaded", () => {
+  const mensajeLogout = localStorage.getItem("mensajeLogout");
+  if (mensajeLogout) {
+    alert(mensajeLogout); // puedes reemplazar por un toast si quieres
+    localStorage.removeItem("mensajeLogout");
+  }
+});
+
+</script>
+
+
+</body>
+</html>

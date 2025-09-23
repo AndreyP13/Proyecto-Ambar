@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Perfil</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    .card {
+      max-width: 300px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: #f9f9f9;
+    }
+    button {
+      background: #4caf50;
+      border: none;
+      color: white;
+      padding: 10px;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Mi Perfil</h2>
+    <p><strong>Usuario:</strong> <span id="username"></span></p>
+    <p><strong>Correo:</strong> <span id="correo"></span></p>
+    <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+    <button onclick="window.location.href='Principal.html'">⬅ Volver</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+      if (!usuario) {
+        alert("No se encontró información del usuario");
+        window.location.href = "index.html"; // lo manda al login si no está logueado
+        return;
+        }
+        document.getElementById("username").textContent = usuario.username || "N/A";
+        document.getElementById("correo").textContent = usuario.correo || "N/A";
+        document.getElementById("nombre").textContent = usuario.nombre || "N/A";
+    });
+    </script>
+</body>
+</html>

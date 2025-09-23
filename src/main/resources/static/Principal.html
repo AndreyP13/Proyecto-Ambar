@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Control</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <img src="imagenes/23.png" alt="Logo" style="height: 40px;" />
+    <div class="botones-header">
+      <button onclick="abrirModalUsuarios()">Usuarios</button>
+      <button onclick="abrirModalReportes()">📊 Reportes</button>
+      <button onclick="abrirModalTiempoUsuarios()">Tiempo global</button>
+    </div>
+    <input type="text" placeholder="Buscar proyectos y tareas..." />
+    <div class="usuario-info">
+      <span>Usuario</span>
+      <div class="dropdown">
+        <button class="dropbtn">Perfil ⌄</button>
+        <div class="dropdown-content">
+          <!-- Aquí se insertan datos del usuario automáticamente -->
+          <li><a id="btnVerPerfil" href="#">Ver perfil</a></li>
+          <li><a id="btnCerrarSesion" href="#">Cerrar sesión</a></li>
+        </div>
+      </div>
+      <img src="imagenes/perfil.png" alt="Usuario" style="height: 30px;" />
+    </div>
+  </header>
+
+  <aside>
+    <ul>
+      <li>Menu inicial</li>
+      <li id="abrirTareas">Tareas</li>
+      <li id="abrirTiempo">Tiempo</li>
+      <li id="abrirEquipo">
+        <i class="fas fa-users"></i>
+      <span>Equipo</span>
+      </li>
+      <li onclick="abrirModalProyectos()">Proyectos</li>
+    </ul>
+    <div class="proyectos-scroll">
+    <h4>Mis Proyectos</h4>
+    <ul id="listaProyectosAside">
+      <!-- Aquí se cargarán los proyectos desde la BD -->
+    </ul>
+    </div>
+  </aside>
+
+  <main>
+    <section class="dashboard">
+      <h1>Panel de Control</h1>
+      <div class="features">
+        <div class="feature">
+          <h2><span id="abrirTareasTarjeta" style="cursor: pointer;">📋 Mis Tareas</span></h2>
+          <p>🔸 Asignado: 1<br>🔸 Finalizado: 0<br>🔸 Marcado: 1<br>❗ Atrasado: 0</p>
+        </div>
+        <div class="feature">
+          <h2>⏱️ Mi Tiempo</h2>
+          <p>⏰ Reloj de tiempo: 00:00:00<br>🕒 Total horas para ejecutar esta semana: 48</p>
+        </div>
+        <div class="feature">
+          <h2>🧩 Mi equipo</h2>
+          <p>🔹 En curso<br>🔹 Aprobado<br>🔹 Rechazado</p>
+        </div>
+        <div class="feature">
+          <h2>📂 Mis Proyectos</h2>
+          <p>📁 Asignado: 1<br>📁 Finalizados: 1</p>
+        </div>
+        <div class="feature">
+          <h2>📑 Informes</h2>
+          <p>🔍 Personalizados<br>📝 Generados</p>
+        </div>
+        <div class="feature">
+          <h2>🚨 Alertas</h2>
+          <p>🛑 Proyecto con stopper: 0<br>❗ Tareas vencidas: 0<br>🔔 Horas sin diligenciar: 0</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="informacion-proyecto">
+      <div class="info-header">
+        <h2>Información de proyecto</h2>
+        <div class="botones-accion">
+          <button class="boton-ver">Ver más</button>
+          <button class="boton-editar">Editar</button>
+        </div>
+      </div>
+      <div class="tareas">
+        <div>
+          <strong>📝 Nombre de Tarea:</strong><br><br>
+          <strong>Tarea 1:</strong> Diseñar interfaz de usuario<br>
+          <strong>Tarea 2:</strong> Diseñar logueo<br>
+          <strong>Tarea 3:</strong> Crear JSON
+        </div>
+        <div>
+          <strong>📅 Fechas de Inicio:</strong><br><br>
+          <strong>Tarea 1:</strong> 2025-05-22<br>
+          <strong>Tarea 2:</strong> 2025-05-28<br>
+          <strong>Tarea 3:</strong> 2025-05-30
+        </div>
+        <div>
+          <strong>📅 Fechas Finales:</strong><br><br>
+          <strong>Tarea 1:</strong> 2025-06-18<br>
+          <strong>Tarea 2:</strong> 2025-06-19<br>
+          <strong>Tarea 3:</strong> 2025-06-20
+        </div>
+        <div>
+          <strong>👤 Gestionado por:</strong><br><br>
+          <strong>Asignado a:</strong> Andrey<br>
+          <strong>Equipo:</strong> 3<br>
+          <strong>Ocupación:</strong> 20%<br>
+          <strong>Proyecto:</strong> Construir CRM
+        </div>
+        <div>
+          <strong>📝 Información proyecto:</strong><br><br>
+          <strong>Cliente:</strong> Banco SAC<br>
+          <strong>Horas de desarrollo estimadas:</strong> 120<br>
+          <strong>Indicador actual:</strong> 0%<br>
+          <strong>Indicador esperado:</strong> 100%
+        </div>
+      </div>
+
+      <h2>Documentos</h2>
+      <div class="documentos">
+        <div class="doc-item">PGP Anexado: 1</div>
+        <div class="doc-item">Justificaciones: 2</div>
+        <div class="doc-item">Cronograma: 1</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de tareas -->
+  <div id="ventanaTareas" class="modal-tareas oculto">
+    <div class="contenedor-modal">
+      <div class="encabezado-modal">
+        <h2 class="titulo-centrado">Mis tareas</h2>
+        <h3>Proyecto: Proyecto A</h3>
+        <button id="cerrarTareas">✖</button>
+      </div>
+      <div class="boton-crear-tarea">
+        <button id="btnCrearTarea">+ Crear nueva tarea</button>
+      </div>
+      <h4>Tareas del proyecto</h4>
+      <div class="filtros-tareas">
+          <button class="filtro-tareas">Todos</button>
+          <button class="filtro-tareas">Pendientes</button>
+          <button class="filtro-tareas">En proceso</button>
+          <button class="filtro-tareas">Atrasadas</button>
+          <button class="filtro-tareas">Completadas</button>
+      </div>
+      <table id="tablaTareas" class="tabla-tareas">
+        <thead>
+          <tr>
+            <th>Nombre de tarea</th>
+            <th>Responsable</th>
+            <th>Estado</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Filas agregadas dinámicamente -->
+      
+  <!-- Modal: Formulario de nueva tarea -->
+  <div id="formularioTarea" class="modal-tareas oculto">
+    <div class="contenedor-modal">
+      <div class="encabezado-modal">
+        <h3>Crear nueva tarea</h3>
+      </div>
+      <form id="formNuevaTarea">
+        <label for="nombreTarea">Nombre de tarea:</label><br />
+        <input type="text" id="nombreTarea" name="nombreTarea" /><br /><br />
+        <label for="responsable">Responsable:</label><br />
+        <input type="text" id="responsable" name="responsable" /><br /><br />
+        <label for="estado">Estado:</label><br />
+        <select id="estado" name="estado">
+          <option value="por iniciar">Pendiente</option>
+          <option value="en proceso">En proceso</option>
+          <option value="completada">Completada</option>
+          <option value="atrasada">Atrasada</option>
+        </select><br /><br />
+
+        <label for="fechaInicio">Fecha de inicio:</label><br />
+        <input type="date" id="fechaInicio" name="fechaInicio" /><br /><br />
+        <label for="fechaFin">Fecha de fin:</label><br />
+        <input type="date" id="fechaFin" name="fechaFin" /><br /><br />
+        <button type="submit">Guardar</button>
+      </form>
+     </tbody>
+      </table>
+    </div> <!-- Fin de contenedor-modal -->
+  </div>
+
+
+<!-- FINALIZA TAREAS EN LINEA 339 E INICIA TIEMPO EN LINEA 344 -->
+
+<div id="ventanaTiempo" class="modal oculto">
+  <div class="modal-contenido">
+    <span class="cerrar" id="cerrarTiempo">&times;</span>
+    <h2>Gestión de Tiempo - Timesheet Semanal</h2>
+
+    <!-- Selector de Semana -->
+    <div class="selector-semana">
+      <label for="semana">Semana:</label>
+      <input type="week" id="semana" />
+      <span id="rangoFechas">Del 2025-07-21 al 2025-07-27</span>
+    </div>
+
+    <!-- Barra de búsqueda y botón de agregar -->
+    <div class="acciones-tiempo">
+      <input type="text" id="buscarProyectoo" placeholder="Buscar proyecto o estado..." />
+    </div>
+
+    <!-- Tabla de tiempos -->
+    <div class="contenedor-tabla-tiempo">
+      <table id="tablaTiempo">
+        <thead>
+          <tr>
+            <th>✓</th>
+            <th>Proyecto</th>
+            <th>Lun</th>
+            <th>Mar</th>
+            <th>Mié</th>
+            <th>Jue</th>
+            <th>Vie</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Filas dinámicas aquí -->
+        </tbody>
+          <tfoot>
+            <tr>
+            <td colspan="2">Total Día</td>
+
+            <td id="totalLun">0</td>
+            <td id="totalMar">0</td>
+            <td id="totalMie">0</td>
+            <td id="totalJue">0</td>
+            <td id="totalVie">0</td>
+
+        <td colspan="2">
+                Total Semana: <span id="totalHorasSemana">0</span>
+            </td>
+            </tr>
+          </tfoot>
+      </table>
+    </div>
+
+    <div class="acciones-guardar">
+        <button id="btnGuardarHoras" class="btn-primario">Guardar</button>
+    </div>
+
+    <!-- Contador de proyectos -->
+    <div class="contador-tiempo">
+      <span id="contadorProyectos">0 proyectos</span>
+    </div>
+  </div>
+</div>
+
+<!-- Ventana Modal - Gestión de Equipo -->
+<div id="ventanaEquipo" class="modal oculto">
+  <div class="modal-contenido">
+    <span class="cerrar" id="cerrarEquipo">&times;</span>
+    <h2>Gestión de Equipos</h2>
+
+    <!-- Filtros -->
+    <div class="filtros-equipo">
+      <select id="selectorEquipo">
+  <!-- Estos valores deben venir de tu API -->
+          <option value="1">Equipo DXS Andrey</option>
+          <option value="2">Equipo Marketing</option>
+      </select>
+
+
+      <input type="text" id="buscarPersona" placeholder="🔍 Buscar personas" />
+    </div>
+
+    <div class="acciones-equipo">
+      <button id="btnNuevoEquipo">+ Crear Equipo</button>
+      <button id="btnEditarEquipo">✏️ Editar Equipo</button>
+      <button id="btnEliminarEquipo">🗑️ Eliminar Equipo</button>
+    </div>
+
+    <!-- Tabla de equipo -->
+   <table class="tabla-equipo">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Proyectos del equipo</th>
+      <th>Proyectos personales</th>
+      <th>Ocupación %</th>
+    </tr>
+  </thead>
+  <tbody id="tablaMiembros">
+  </tbody>
+  <tfoot>
+    <tr class="fila-total">
+      <td colspan="4">Total ocupación del equipo: <strong>40%</strong></td>
+    </tr>
+  </tfoot>
+</table>
+  </div>
+</div>
+
+
+<!-- Modal Crear Equipo -->
+<div id="modalNuevoEquipo" class="modal oculto">
+  <div class="modal-contenido">
+    <span class="cerrar" id="cerrarNuevoEquipo">&times;</span>
+    <h3>Nuevo Equipo</h3>
+    
+    <input type="text" id="nombreEquipo" placeholder="Nombre del equipo" />
+    <input type="number" id="proyectosEquipo" placeholder="Proyectos del equipo" />
+    <input type="number" id="proyectosPersonales" placeholder="Proyectos personales" />
+    <input type="number" id="ocupacionEquipo" placeholder="Ocupación %" />
+    
+    <button id="confirmarNuevoEquipo">Crear</button>
+  </div>
+</div>
+
+<!-- Modal Editar Equipo -->
+<div id="modalEditarEquipo" class="modal oculto">
+  <div class="modal-contenido">
+    <span class="cerrar" id="cerrarEditarEquipo">&times;</span>
+    <h3>Editar Equipo</h3>
+    
+    <input type="text" id="editarNombreEquipo" placeholder="Nombre del equipo" />
+    <input type="number" id="editarProyectosEquipo" placeholder="Proyectos del equipo" />
+    <input type="number" id="editarProyectosPersonales" placeholder="Proyectos personales" />
+    <input type="number" id="editarOcupacionEquipo" placeholder="Ocupación %" />
+    
+    <button id="confirmarEditarEquipo">Guardar</button>
+  </div>
+</div>
+
+<!-- Ventana Gestión de Documentos -->
+<div id="ventanaDocumentos" class="ventana-modal" style="display: none;">
+  <div class="contenido-modal">
+    <span class="cerrar" onclick="cerrarVentana('ventanaDocumentos')">&times;</span>
+    <h2>Documentos</h2>
+
+    <div class="filtros-documentos">
+      <select id="selectorProyectoDocs">
+        <option value="">Mis proyectos</option>
+        <option value="Proyecto A">Proyecto A</option>
+        <option value="Proyecto B">Proyecto B</option>
+      </select>
+
+      <div class="busqueda-icono">
+        <i class="fas fa-search"></i>
+        <input type="text" id="buscarDocumento" placeholder="🔍 Buscar documentos">
+      </div>
+    </div>
+
+    <table class="tabla-documentos" id="tablaDocumentos">
+  <thead>
+    <tr>
+      <th>Nombre proyecto</th>
+      <th>Cantidad de documentos</th>
+      <th>Última fecha documento cargado</th>
+      <th>Acciones</th>
+    </tr>
+    <tr>
+  <td>Proyecto A</td>
+  <td>4</td>
+  <td>2025-07-20</td>
+  <td>
+    <button class="btn-ver" onclick="mostrarVistaDocumento('Documento Proyecto 1', 'Planos y especificaciones', '2025-07-20', 'pdf', 'docs/proyecto1.pdf')">
+      <i class="fas fa-eye"></i>
+    </button>
+    <button class="btn-subir" onclick="subirDocumento('Proyecto 1')">
+  <i class="fas fa-upload"></i>
+</button>
+    <button class="btn-eliminar" onclick="eliminarDocumento(this)">
+      <i class="fas fa-trash"></i>
+    </button>
+  </td>
+    <!-- otros botones -->
+  </td>
+</tr>
+  </thead>
+  <tbody id="tbodyDocumentos">
+    <!-- JS insertará aquí las filas -->
+  </tbody>
+</table>
+  </div>
+</div>
+
+<!-- Ventana Modal: Gestión de Proyectos -->
+<div id="ventanaProyectos" class="ventana-modal oculto">
+  <div class="contenido-modal">
+    <span class="cerrar-modal" onclick="cerrarModalProyectos()">✖</span>
+
+    <h2>Mis Proyectos</h2>
+
+    <!-- Barra superior: buscador, filtro y nuevo proyecto -->
+    <div class="barra-superior-proyectos">
+      <input type="text" placeholder="Buscar proyectos..." id="buscarProyecto" />
+      <select id="filtroEstado">
+        <option value="">Todos los estados</option>
+        <option value="Por iniciar">Por iniciar</option>
+        <option value="Inicio">Inicio</option>
+        <option value="Planeación">Planeación</option>
+        <option value="Ejecución">Ejecución</option>
+        <option value="Monitoreo y control">Monitoreo y control</option>
+        <option value="Cierre">Cierre</option>
+      </select>
+      <button type="button" id="btnNuevoProyecto">+ Nuevo Proyecto</button>
+    </div>
+
+    <!-- Lista de proyectos -->
+    <table id="tablaProyectos" class="tabla-proyectos">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Progreso</th>
+      <th>Estado</th>
+      <th>Última actualización</th>
+      <th>Cliente</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody id="listaProyectos">
+    <!-- Aquí JS insertará las filas -->
+  </tbody>
+</table>
+  </div>
+</div>
+
+<!-- ================== MODAL FORMULARIO PROYECTO ================== -->
+<div id="modalProyecto" class="modal oculto">
+  <div class="modal-contenido">
+    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+    <h2>Crear y editar proyecto</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="general">Información general</button>
+    </div>
+
+    <!-- Secciones -->
+    <form id="formProyecto">
+      <input type="hidden" id="proyectoId" name="proyectoId">
+
+      <div class="tab-contenido activo" id="tab-general">
+        <!-- Nombre -->
+        <div class="form-grupo">
+          <label for="nombre">Nombre de proyecto</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="form-grupo">
+          <label for="identificador">Identificador</label>
+          <input type="text" id="identificador" name="identificador">
+        </div>
+
+        <div class="form-grupo">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" name="descripcion"></textarea>
+        </div>
+
+        <div class="form-grupo">
+          <label for="estado">Estado</label>
+          <select id="estadoProyecto" name="estado">
+            <option value="POR_INICIAR">Por iniciar</option>
+            <option value="EN_CURSO">En curso</option>
+            <option value="FINALIZADO">Finalizado</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label for="tipoProyecto">Tipo de proyecto</label>
+          <select id="tipoProyecto" name="tipoProyecto">
+            <option value="Estándar">Estándar</option>
+            <option value="Base">Base</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label for="cliente">Cliente</label>
+          <input type="text" id="cliente" name="cliente">
+        </div>
+
+        <div class="form-grupo">
+          <label for="equipoAsignado">Equipo asignado</label>
+          <input type="text" id="equipoAsignado" name="equipoAsignado">
+        </div>
+
+        <div class="form-grupo">
+          <label for="oportunidad">Oportunidad</label>
+          <select id="oportunidad" name="oportunidad">
+            <option value="A tiempo">A tiempo</option>
+            <option value="Retrasado">Retrasado</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Campos obligatorios -->
+      <input type="date" id="fechaInicioEstimada" placeholder="Fecha Inicio Estimada" />
+      <input type="date" id="fechaFinEstimada" placeholder="Fecha Fin Estimada" />
+
+      <!-- Campos adicionales -->
+      <input type="date" id="fechaInicioReal" placeholder="Fecha Inicio Real" />
+      <input type="date" id="fechaFinReal" placeholder="Fecha Fin Real" />
+      <input type="number" id="horasProyecto" placeholder="Horas del Proyecto" readonly style="background-color:#f0f0f0; cursor:not-allowed;" />
+      <input type="text" id="justificacionRetraso" placeholder="Justificación de Retraso" />
+      <input type="number" id="porcentajeAvance" placeholder="Porcentaje de Avance" min="0" max="100" />
+
+      <input type="text" id="indicadorActual" placeholder="Indicador Actual" />
+      <input type="text" id="indicadorEsperado" placeholder="Indicador Esperado" />
+      <input type="text" id="indicadorFinal" placeholder="Indicador Final" />
+
+      <!-- Botón guardar -->
+      <div class="form-acciones">
+        <button type="button" id="btnGuardarProyecto" class="btn-primario">Guardar Proyecto</button>
+        <button type="button" id="btnCerrarProyecto">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- Iniciamos con el modal de USUARIOS -->
+
+<!-- Ventana modal Usuarios -->
+<div id="modalUsuarios" class="modal-usuarios oculto">
+  <div class="ventana-usuarios">
+    <span class="cerrar-modal-usuarios" onclick="cerrarModalUsuarios()">×</span>
+    <h2 class="titulo-usuarios">Usuarios</h2>
+
+      <div class="usuarios-controles">
+  <!-- Buscador de usuarios -->
+  <div class="buscador-usuarios">
+    <input type="text" placeholder="🔍 Buscar usuario" />
+  </div>
+
+  <!-- Filtro de usuarios -->
+  <div class="filtro-usuarios">
+    <select>
+      <option>Usuarios activos - acceso permitido</option>
+      <option>Usuarios inactivos</option>
+      <option>Todos los usuarios</option>
+    </select>
+  </div>
+
+  <!-- Botón nuevo usuario -->
+  <div class="nuevo-usuario">
+    <button id="btnNuevoUsuario">➕ Nuevo Usuario</button>
+  </div>
+</div>
+
+    <!-- Tabla de usuarios -->
+    <div class="tabla-usuarios">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Permisos</th>
+            <th>Tipos de proyectos asignado</th>
+            <th>Número de proyectos</th>
+            <th>Equipo</th>
+            <th>Email</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaUsuariosBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OCULTO EDICION DE USUARIO -->
+
+<!-- MODAL DE EDICIÓN DE USUARIO -->
+<div id="modalEditarUsuario" class="modal-usuarios oculto">
+  <div class="ventana-usuarios">
+    <span class="cerrar-modal-usuarios" onclick="cerrarModalEditar()">×</span>
+    <h2>Editar Usuario</h2>
+
+    <!-- Barra de pestañas -->
+    <div class="tabs">
+      <button class="tablink active" data-tab="tab-identificacion">Identificación</button>
+      <button class="tablink" data-tab="tab-permisos">Permisos de acceso</button>
+      <button class="tablink" data-tab="tab-notificaciones">Notificaciones Email</button>
+    </div>
+
+    <!-- Contenedor de pestañas -->
+    <div class="tab-content">
+
+      <!-- Identificación -->
+      <div id="tab-identificacion" class="tab-pane active">
+        <form id="formEditarUsuario">
+          <input type="hidden" id="editId" />
+          <input id="editNombre" type="text" placeholder="Nombre" />
+          <input id="editUsername" type="text" placeholder="Username" />
+          <input id="editCorreo" type="email" placeholder="Correo" />
+          <input id="editEquipo" type="text" placeholder="Equipo" />
+          <input id="editPassword" type="password" placeholder="password" />
+
+          <select id="editEstado">
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+
+          <select id="editRol">
+            <option value="Administrador">Administrador</option>
+            <option value="Normal">Normal</option>
+          </select>
+
+          <button type="submit">💾 Guardar</button>
+        </form>
+      </div>
+
+      <!-- Permisos de acceso -->
+      <div id="tab-permisos" class="tab-pane">
+        <h3>Permisos</h3>
+        <label><input type="checkbox" id="permisoProyectos" /> Puede crear proyectos</label><br>
+        <label><input type="checkbox" id="permisoClientes" /> Puede agregar clientes</label><br>
+        <label><input type="checkbox" id="permisoUsuarios" /> Puede ver todos los usuarios</label><br>
+        <label><input type="checkbox" id="permisoNotificaciones" /> Puede editar preferencias de notificaciones</label><br>
+        <label><input type="checkbox" id="permisoTiempo" /> Puede usar el módulo de tiempo completo</label>
+      </div>
+
+      <!-- Notificaciones Email -->
+      <div id="tab-notificaciones" class="tab-pane">
+        <h3>Preferencias de notificación</h3>
+        <label><input type="checkbox" id="notifProyectos" /> Notificaciones de proyectos</label><br>
+        <label><input type="checkbox" id="notifClientes" /> Notificaciones de clientes</label><br>
+        <label><input type="checkbox" id="notifGeneral" /> Notificaciones generales</label>
+      </div>
+
+      <div class="acciones-modal">
+        <button type="button" id="btnEliminarUsuario" class="btn-eliminar">🗑️ Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- REPORTES -->
+
+<div id="ventanaReportes" class="modal oculto">
+  <div class="modal-contenido ventana-reportes">
+    <div class="modal-header">
+      <h2>📊 Reportes</h2>
+      <span class="cerrar" onclick="cerrarModalReportes()">×</span>
+    </div>
+
+    <div class="tabs-reportes">
+      <button class="tab active" onclick="mostrarTabReporte('tareas', event)">Tareas</button>
+      <button class="tab" onclick="mostrarTabReporte('proyectos', event)">Proyectos</button>
+      <button class="tab" onclick="mostrarTabReporte('usuarios', event)">Usuarios</button>
+    </div>
+
+    <div class="subopciones">
+      <button class="btn-azul">➕ Agregar más campos</button>
+      <button class="btn-gris">📁 Reportes predeterminados</button>
+      <button class="btn-azul">📝 Crea tu reporte</button>
+    </div>
+
+    <!-- Contenido por pestaña interna -->
+    <div id="tab-tareas" class="contenido-reporte">
+      <p>Contenido de tareas...</p>
+    </div>
+    <div id="tab-proyectos" class="contenido-reporte oculto">
+      <p>Contenido de proyectos...</p>
+    </div>
+    <div id="tab-usuarios" class="contenido-reporte oculto">
+      <p>Contenido de usuarios...</p>
+    </div>
+    <div id="tab-tiempo" class="contenido-reporte oculto">
+      <p>Contenido de tiempo...</p>
+    </div>
+
+    <div class="acciones-reportes">
+      <button class="btn-ver" onclick="verReporte()">👁 Ver</button>
+      <button class="btn-descargar" onclick="descargarReporte()">⬇ Descargar</button>
+      <button class="btn-rojo">🗑 Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TIEMPO USUARIOS GLOBAL -->
+
+<div id="modalTiempoUsuarios" class="modal-tiempo-global oculto">
+  <div class="contenido-modal-tiempo-global">
+    <span class="cerrar-modal-tiempo-global" onclick="cerrarModalTiempoGlobal()">×</span>
+
+    <h2><i class="fa-solid fa-users-viewfinder"></i> Tiempo Global de Usuarios</h2>
+
+    <div class="tiempoGlobal-filtros">
+      <div class="tiempoGlobal-fecha">
+        <label for="tiempoGlobalSemana"><strong>Semana:</strong></label>
+        <input type="week" id="tiempoGlobalSemana" value="2025-07-21">
+        <span id="tiempoGlobalRango">2025-07-21 - 2025-07-27</span>
+      </div>
+
+      <input type="text" id="tiempoGlobalBuscador" placeholder="🔍 Buscar proyecto o estado...">
+    </div>
+
+    <div class="tabla-tiempoGlobal">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="tiempoGlobalCheckAll"></th>
+            <th>Usuario</th>
+            <th>Horas faltantes</th>
+            <th>Total trabajado</th>
+            <th>En progreso</th>
+            <th>Rechazado</th>
+            <th>Aprobado</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>Andrey Valencia</td>
+            <td>5.00</td>
+            <td>42.00</td>
+            <td>1.00</td>
+            <td>5.00</td>
+            <td>37.00</td>
+            <td>Horas rechazadas</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" checked></td>
+            <td>Alejandra Londoño</td>
+            <td>0.00</td>
+            <td>42.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>42.00</td>
+            <td>Horas completas</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>Carlos Velez</td>
+            <td>2.00</td>
+            <td>40.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>40.00</td>
+            <td>Horas faltantes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>Maria Londoño</td>
+            <td>20.00</td>
+            <td>45.00</td>
+            <td>20.00</td>
+            <td>0.00</td>
+            <td>25.00</td>
+            <td>Pendiente aprobación</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tiempoGlobal-botones">
+      <button class="btn-descargar" onclick="descargarInformeTiempoGlobal()">
+        <i class="fa-solid fa-download"></i> Descargar informe
+      </button>
+      <button class="btn-recordatorio" onclick="enviarRecordatorioTiempoGlobal()">
+        <i class="fa-solid fa-bell"></i> Enviar recordatorio usuarios con horas incompletas
+      </button>
+    </div>
+  </div>
+</div>
+<script src="Principal.js"></script>
+</body>
+</html>
