@@ -133,66 +133,84 @@
 
   <!-- Modal de tareas -->
   <div id="ventanaTareas" class="modal-tareas oculto">
-    <div class="contenedor-modal">
-      <div class="encabezado-modal">
-        <h2 class="titulo-centrado">Mis tareas</h2>
-        <h3>Proyecto: Proyecto A</h3>
-        <button id="cerrarTareas">✖</button>
-      </div>
-      <div class="boton-crear-tarea">
-        <button id="btnCrearTarea">+ Crear nueva tarea</button>
-      </div>
-      <h4>Tareas del proyecto</h4>
-      <div class="filtros-tareas">
-          <button class="filtro-tareas">Todos</button>
-          <button class="filtro-tareas">Pendientes</button>
-          <button class="filtro-tareas">En proceso</button>
-          <button class="filtro-tareas">Atrasadas</button>
-          <button class="filtro-tareas">Completadas</button>
-      </div>
-      <table id="tablaTareas" class="tabla-tareas">
-        <thead>
-          <tr>
-            <th>Nombre de tarea</th>
-            <th>Responsable</th>
-            <th>Estado</th>
-            <th>Fecha inicio</th>
-            <th>Fecha fin</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Filas agregadas dinámicamente -->
-      
-  <!-- Modal: Formulario de nueva tarea -->
-  <div id="formularioTarea" class="modal-tareas oculto">
-    <div class="contenedor-modal">
-      <div class="encabezado-modal">
-        <h3>Crear nueva tarea</h3>
-      </div>
-      <form id="formNuevaTarea">
-        <label for="nombreTarea">Nombre de tarea:</label><br />
-        <input type="text" id="nombreTarea" name="nombreTarea" /><br /><br />
-        <label for="responsable">Responsable:</label><br />
-        <input type="text" id="responsable" name="responsable" /><br /><br />
-        <label for="estado">Estado:</label><br />
-        <select id="estado" name="estado">
-          <option value="por iniciar">Pendiente</option>
-          <option value="en proceso">En proceso</option>
-          <option value="completada">Completada</option>
-          <option value="atrasada">Atrasada</option>
-        </select><br /><br />
+  <div class="contenedor-modal">
+    <div class="encabezado-modal">
+      <h2 class="titulo-centrado">Mis tareas</h2>
+      <h3>Proyecto: Proyecto A</h3>
+      <button id="cerrarTareas">✖</button>
+    </div>
 
-        <label for="fechaInicio">Fecha de inicio:</label><br />
-        <input type="date" id="fechaInicio" name="fechaInicio" /><br /><br />
-        <label for="fechaFin">Fecha de fin:</label><br />
-        <input type="date" id="fechaFin" name="fechaFin" /><br /><br />
-        <button type="submit">Guardar</button>
-      </form>
-     </tbody>
-      </table>
-    </div> <!-- Fin de contenedor-modal -->
+    <div class="boton-crear-tarea">
+      <button id="btnCrearTarea">+ Crear nueva tarea</button>
+    </div>
+
+    <h4>Tareas del proyecto</h4>
+    <div class="filtros-tareas">
+      <button class="filtro-tareas">Todos</button>
+      <button class="filtro-tareas">Pendientes</button>
+      <button class="filtro-tareas">En proceso</button>
+      <button class="filtro-tareas">Atrasadas</button>
+      <button class="filtro-tareas">Completadas</button>
+    </div>
+
+    <table id="tablaTareas" class="tabla-tareas">
+      <thead>
+        <tr>
+          <th>Nombre de tarea</th>
+          <th>Responsable</th>
+          <th>Estado</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filas agregadas dinámicamente -->
+      </tbody>
+    </table>
   </div>
+</div>
+
+<!-- ⚡ Modal de creación de tarea fuera de la tabla -->
+<div id="formularioTarea" class="modal-tareas oculto">
+  <div class="contenedor-modal">
+    <div class="encabezado-modal">
+      <h3>Crear nueva tarea</h3>
+      <!-- 🔹 Botón para cerrar -->
+      <button id="cerrarFormularioTarea" class="cerrar-modal" type="button">✖</button>
+    </div>
+    <form id="formNuevaTarea">
+      <label for="nombreTarea">Nombre de tarea:</label><br />
+      <input type="text" id="nombreTarea" name="nombreTarea" /><br /><br />
+
+      <label for="responsable">Responsable:</label><br />
+      <input type="text" id="responsable" name="responsable" /><br /><br />
+
+      <label for="estado">Estado:</label><br />
+      <select id="estado" name="estado">
+        <option value="por iniciar">Pendiente</option>
+        <option value="en proceso">En proceso</option>
+        <option value="completada">Completada</option>
+        <option value="atrasada">Atrasada</option>
+      </select><br /><br />
+
+      <label for="fechaInicio">Fecha de inicio:</label><br />
+      <input type="date" id="fechaInicio" name="fechaInicio" /><br /><br />
+
+      <label for="fechaFin">Fecha de fin:</label><br />
+      <input type="date" id="fechaFin" name="fechaFin" /><br /><br />
+
+      <button type="submit">Guardar</button>
+    </form>
+    <div id="formularioTarea" class="modal-tareas oculto">
+  <div class="contenedor-modal">
+    <div class="encabezado-modal">
+      <h3>Crear nueva tarea</h3>
+      <button id="cerrarFormularioTarea" class="cerrar-modal">✖</button> <!-- 🔹 NUEVO -->
+    </div>
+    <form id="formNuevaTarea">
+  </div>
+</div>
 
 
 <!-- FINALIZA TAREAS EN LINEA 339 E INICIA TIEMPO EN LINEA 344 -->

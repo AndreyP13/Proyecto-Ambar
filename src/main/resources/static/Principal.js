@@ -253,6 +253,26 @@ function filtrarTareas(filtro) {
   }));
 
   // ---------- CREAR TAREA ----------
+const btnCrearTarea = document.getElementById("btnCrearTarea");
+console.log("btnCrearTarea:", btnCrearTarea); // 👀 log 1
+if (btnCrearTarea && formularioTarea) {
+   console.log("Se encontró el botón y el formulario"); // 👀 log 2
+  btnCrearTarea.addEventListener("click", () => {
+     console.log("CLICK en + Crear nueva tarea"); // 👀 log 3
+    formularioTarea.classList.remove("oculto");
+  });
+}
+
+// ---------- CERRAR MODAL DE NUEVA TAREA ----------
+const btnCerrarFormularioTarea = document.getElementById("cerrarFormularioTarea");
+if (btnCerrarFormularioTarea && formularioTarea) {
+  btnCerrarFormularioTarea.addEventListener("click", () => {
+    console.log("Cerrar modal crear tarea");
+    formularioTarea.classList.add("oculto"); // 🔹 Oculta el modal
+    formNuevaTarea.reset(); // 🔹 Limpia los campos (opcional)
+  });
+}
+
   if (formNuevaTarea) {
     formNuevaTarea.addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -283,9 +303,6 @@ function filtrarTareas(filtro) {
       }
     });
   }
-
-  // Inicial (si quieres cargar al abrir la página)
-  // cargarTareas();
 });
 
 // FINALZIA FUNCION DE CODIGO PARA TAREAS E INICIA CODIGO PARA TIEMPO
