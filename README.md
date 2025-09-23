@@ -75,7 +75,7 @@ Este proyecto es una **herramienta de gestión de proyectos** que permite admini
      mvn spring-boot:run
 
 
-5. Abre el archivo http://localhost:8080/ en el navegador para acceder al frontend, y hacer losapso de registro,logueo y revisar todo el frontend descrito en los pasos anteriores.
+5. Abre el archivo http://localhost:8080/ en el navegador para acceder al frontend, y hacer los pasos de registro,logueo y revisar todo el frontend descrito en los pasos anteriores.
 
 ✨ Autor
 
