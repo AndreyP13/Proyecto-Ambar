@@ -13,7 +13,7 @@ Este proyecto es una **herramienta de gestión de proyectos** que permite admini
 ## 🔧 Tecnologías utilizadas
 - **Backend:** Java + Spring Boot  
 - **Frontend:** HTML, CSS, JavaScript  
-- **Base de datos:** MySQL (o la que estés usando)  
+- **Base de datos:** MySQL de XAMPP
 - **Control de versiones:** Git y GitHub  
 
 ---
