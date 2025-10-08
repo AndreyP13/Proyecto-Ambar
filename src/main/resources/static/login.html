@@ -111,7 +111,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       localStorage.setItem("mensajeLogin", "✅ Bienvenido " + data.nombre + "!");
 
       // ✅ Redirigir a la página principal
-      window.location.href = "Principal.html";
+      window.location.href = "principal.html";
     } else {
       alert("❌ " + (data.mensaje || "Error de login"));
     }
