@@ -671,6 +671,128 @@ btnEliminarEquipo.addEventListener("click", async () => {
 
 // Finaliza parte de EQUIPO
 
+//Inicia parte de DOCUMENTOS
+
+document.getElementById("abrirDocumentos").addEventListener("click", function () {
+  cargarTablaDocumentos();
+  mostrarVentana("ventanaDocumentos");
+});
+
+document.getElementById("buscarDocumento").addEventListener("input", function () {
+  const valor = this.value.trim();
+  cargarTablaDocumentos(valor);
+});
+
+function mostrarVentana(idVentana) {
+  document.getElementById(idVentana).style.display = "flex";
+  document.body.classList.add('modal-abierto');
+}
+
+function cerrarVentana(idVentana) {
+  document.getElementById(idVentana).style.display = "none";
+  document.body.classList.remove('modal-abierto');
+}
+
+const listaDocumentos = [
+  { nombreProyecto: "Proyecto A", cantidad: 4, ultimaFecha: "2025-07-20" },
+  { nombreProyecto: "Proyecto B", cantidad: 3, ultimaFecha: "2025-07-21" },
+  { nombreProyecto: "Proyecto C", cantidad: 7, ultimaFecha: "2025-07-18" },
+  { nombreProyecto: "Proyecto D", cantidad: 0, ultimaFecha: "-" }
+];
+
+function cargarTablaDocumentos(filtro = "") {
+  const tbody = document.getElementById("tbodyDocumentos");
+  tbody.innerHTML = "";
+
+  const documentosFiltrados = listaDocumentos.filter(doc =>
+    doc.nombreProyecto.toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  documentosFiltrados.forEach((doc, index) => {
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${doc.nombreProyecto}</td>
+      <td>${doc.cantidad}</td>
+      <td>${doc.ultimaFecha || '-'}</td>
+      <td class="acciones-documento">
+        <button class="btn-ver" data-index="${index}" title="Ver documento">
+          <i class="fas fa-eye"></i>
+        </button>
+        <button class="btn-subir" data-index="${index}" title="Subir documento">
+          <i class="fas fa-upload"></i>
+        </button>
+        <button class="btn-eliminar" data-index="${index}" title="Eliminar documento">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(fila);
+  });
+
+  // Eventos de botones
+  document.querySelectorAll(".btn-ver").forEach(btn =>
+    btn.addEventListener("click", e => {
+      const index = e.currentTarget.dataset.index;
+      verDocumentosProyecto(index);
+    })
+  );
+
+  document.querySelectorAll(".btn-subir").forEach(btn =>
+    btn.addEventListener("click", e => {
+      const index = e.currentTarget.dataset.index;
+      subirDocumento(index);
+    })
+  );
+
+  document.querySelectorAll(".btn-eliminar").forEach(btn =>
+    btn.addEventListener("click", e => {
+      const index = e.currentTarget.dataset.index;
+      eliminarDocumento(index);
+    })
+  );
+}
+
+function verDocumentosProyecto(index) {
+  const doc = listaDocumentos[index];
+  if (!doc) return; // seguridad
+  const modal = document.getElementById("modalVerDocumentos");
+  const titulo = document.getElementById("tituloDocumento");
+  titulo.textContent = `Documentos de ${doc.nombreProyecto}`;
+  modal.classList.remove("oculto");
+  document.body.classList.add("modal-abierto");
+}
+
+function cerrarModalVerDocumentos() {
+  const modal = document.getElementById("modalVerDocumentos");
+  modal.classList.add("oculto");
+  document.body.classList.remove("modal-abierto");
+}
+
+function verDocumento(rutaDocumento) {
+  window.open(rutaDocumento, "_blank");
+}
+
+function subirDocumento(index) {
+  const doc = listaDocumentos[index];
+  const confirmacion = confirm(`¿Quieres subir un nuevo documento para "${doc.nombreProyecto}"?`);
+  if (confirmacion) {
+    doc.cantidad += 1;
+    doc.ultimaFecha = new Date().toISOString().split("T")[0];
+    cargarTablaDocumentos();
+  }
+}
+
+function eliminarDocumento(index) {
+  const doc = listaDocumentos[index];
+  const confirmacion = confirm(`¿Eliminar todos los documentos del proyecto "${doc.nombreProyecto}"?`);
+  if (confirmacion) {
+    listaDocumentos.splice(index, 1);
+    cargarTablaDocumentos();
+  }
+}
+// Finaliza parte de DOCUMENTOS
+
 // ========================
 // CONFIGURACIÓN
 // ========================

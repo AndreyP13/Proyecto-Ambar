@@ -38,6 +38,7 @@
         <i class="fas fa-users"></i>
       <span>Equipo</span>
       </li>
+      <li id="abrirDocumentos">Documentos</li>
       <li onclick="abrirModalProyectos()">Proyectos</li>
     </ul>
     <div class="proyectos-scroll">
@@ -376,20 +377,6 @@
       <th>Acciones</th>
     </tr>
     <tr>
-  <td>Proyecto A</td>
-  <td>4</td>
-  <td>2025-07-20</td>
-  <td>
-    <button class="btn-ver" onclick="mostrarVistaDocumento('Documento Proyecto 1', 'Planos y especificaciones', '2025-07-20', 'pdf', 'docs/proyecto1.pdf')">
-      <i class="fas fa-eye"></i>
-    </button>
-    <button class="btn-subir" onclick="subirDocumento('Proyecto 1')">
-  <i class="fas fa-upload"></i>
-</button>
-    <button class="btn-eliminar" onclick="eliminarDocumento(this)">
-      <i class="fas fa-trash"></i>
-    </button>
-  </td>
     <!-- otros botones -->
   </td>
 </tr>
@@ -400,6 +387,101 @@
 </table>
   </div>
 </div>
+
+<!-- Ventana Modal Ver Documento -->
+
+<div id="modalVerDocumentos" class="ventana-modal oculto">
+  <div class="documentos-anexos">
+    <!-- Botón de cerrar -->
+    <button class="btn-cerrar" onclick="cerrarModalVerDocumentos()">✖</button>
+
+    <!-- Título dinámico -->
+    <h2 id="tituloDocumento">Documentos Anexos</h2>
+
+    <!-- Encabezado del modal -->
+    <div class="documentos-header">
+      <div class="fila-superior-docs">
+        <!-- Selector de proyecto -->
+        <div class="selector-contenedor">
+          <select class="selector-proyecto">
+            <option>Proyecto 1</option>
+            <option>Proyecto 2</option>
+            <option>Proyecto 3</option>
+            <option>Proyecto 4</option>
+          </select>
+        </div>
+
+        <!-- Búsqueda y acciones -->
+        <div class="acciones-docs">
+          <div class="busqueda-docs">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar documentos">
+          </div>
+
+          <button class="btn-agregar-doc">
+            <i class="fas fa-plus"></i> Agregar documentos
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de documentos -->
+    <table class="tabla-documentos">
+      <thead>
+        <tr>
+          <th>Nombre documento</th>
+          <th>Descripción</th>
+          <th>Última fecha documento cargado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><i class="fas fa-file-word icono-doc"></i> Documento 1</td>
+          <td>Descripción 1</td>
+          <td>2025-07-20</td>
+          <td class="acciones">
+            <i class="fas fa-eye" onclick="verDocumento('docs/documento1.pdf')"></i>
+            <i class="fas fa-download"></i>
+            <i class="fas fa-trash-alt"></i>
+          </td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-file-pdf icono-doc"></i> Documento 2</td>
+          <td>Descripción 2</td>
+          <td>2025-07-21</td>
+          <td class="acciones">
+            <i class="fas fa-eye" onclick="verDocumento('docs/documento2.pdf')"></i>
+            <i class="fas fa-download"></i>
+            <i class="fas fa-trash-alt"></i>
+          </td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-file-excel icono-doc"></i> Documento 3</td>
+          <td>Descripción 3</td>
+          <td>2025-07-22</td>
+          <td class="acciones">
+            <i class="fas fa-eye" onclick="verDocumento('docs/documento3.pdf')"></i>
+            <i class="fas fa-download"></i>
+            <i class="fas fa-trash-alt"></i>
+          </td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-file-powerpoint icono-doc"></i> Documento 4</td>
+          <td>Descripción 4</td>
+          <td>2025-07-23</td>
+          <td class="acciones">
+            <i class="fas fa-eye" onclick="verDocumento('docs/documento4.pdf')"></i>
+            <i class="fas fa-download"></i>
+            <i class="fas fa-trash-alt"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Ventana de docuemntos FINALIZA -->
 
 <!-- Ventana Modal: Gestión de Proyectos -->
 <div id="ventanaProyectos" class="ventana-modal oculto">
